@@ -3,7 +3,7 @@
 @section('title','Task')
 
 @section('content')
-<div class="col-8 mx-auto mt-2">
+<div class="col-12 mx-auto mt-2">
     @if ( $message = Session::get('success'))
         <div class="alert alert-success">
             {{ $message }}
@@ -21,8 +21,10 @@
     @endif
     <div class="text-center"><h2>Edit Task</h2></div>
     <form action="{{ url('/tasks',$task->id)}}" method="post">
-    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
     <input type="hidden" name="_method" value="PUT">
+
+    <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <div class="form-group">
             <label for="type">Type :</label>
             <select class="form-control" name="type">
@@ -43,7 +45,7 @@
         </div>
         <div class="form-group">
             <label for="detail">Detail :</label>
-            <textarea type="text" class="form-control" rows="5" name="detail">{{ old('detail',$task->detail)}}</textarea>
+            <textarea type="text" class="form-control" rows="3" name="detail">{{ old('detail',$task->detail)}}</textarea>
         </div>
         <div class="form-group">
             <label class="text-inline">Status :</label>

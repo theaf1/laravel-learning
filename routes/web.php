@@ -15,51 +15,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/tasks/create',function(){
-    $types[] = [ 'id' => 1 , 'name' => 'Support' ];
-    $types[] = [ 'id' => 2 , 'name' => 'Maintain' ];
-    $types[] = [ 'id' => 3 , 'name' => 'Change Requirement' ];
+Route::get('/tasks','TaskController@index');
 
-    $statuses[] = ['id' => 0, 'name' => 'Incomplete'];
-    $statuses[] = ['id' => 1, 'name' => 'completed'];
-    return view('tasks.create')->with([ 'types'=> $types,'statuses' => $statuses ]);
-});
+Route::get('/tasks/create','TaskController@create');
 
-Route::post('/tasks/store',function(Illuminate\Http\Request $request){ 
-    // $task = new App\Task();
-    // $task->type = $request->type;
-    // $task->name = $request->name;
-    // $task->detail = $request->detail;
-    // $task->status = $request->status;
-    // $task->save();
-    $validation = $request->validate([
-        'type' => 'required',
-        'name' => 'required|max:255',
-        'status' => 'required'
-    ]);
-    App\Task::create($request->all());
-    return redirect()->back()->with('success','Created Successfully !!');
-});
+Route::post('/tasks/store','TaskController@store');
 
-Route::get('/tasks/{id}',function($id){
-    $types[] = [ 'id' => 1 , 'name' => 'Support' ];
-    $types[] = [ 'id' => 2 , 'name' => 'Maintain' ];
-    $types[] = [ 'id' => 3 , 'name' => 'Change Requirement' ];
+Route::get('/tasks/{id}','TaskController@edit');
 
-    $statuses[] = ['id' => 0, 'name' => 'Incomplete'];
-    $statuses[] = ['id' => 1, 'name' => 'completed'];
+Route::put('/tasks/{id}','TaskController@update');
 
-    $task = App\Task::find($id);
-    return view('tasks.edit')->with(['types'=> $types,'statuses' => $statuses, 'task'=> $task]);
-});
-
-Route::put('/tasks/{id}',function(Illuminate\Http\Request $request,$id){
-    $validation = $request->validate([
-        'type' => 'required',
-        'name' => 'required|max:255',
-        'status' => 'required'
-    ]);
-    
-    App\Task::find($id)->update($request->all());
-    return redirect()->back()->with('success','Edited Successfully !!');
-});
+Route::patch('/tasks/{task}','TaskController@update');

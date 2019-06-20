@@ -1,8 +1,3 @@
-@extends('layouts.app')
-
-@section('title','Task')
-
-@section('content')
 <div class="col-12 mx-auto mt-2">
     @if ( $message = Session::get('success'))
         <div class="alert alert-success alert-dismissible">
@@ -21,15 +16,20 @@
             </ul>
         </div>
     @endif
-    <div class="text-center"><h2>Create Task</h2></div>
-    <form action="{{ url('/tasks/store')}}" method="post">
+    
+    @if(isset($task))
+        <form action="{{ url('/tasks',$task->id)}}" method="post">
+        <input type="hidden" name="_method" value="PUT">
+    @else
+        <form action="{{ url('/tasks/store')}}" method="post">
+    @endif
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <div class="form-group">
             <label for="type">Type :</label>
             <select class="form-control" name="type">
                 <option value="" hidden></option>
                 @foreach($types as $type )
-                    @if( old('type') == $type['id'])
+                    @if( old('type', isset($task) ? $task->type : '') == $type['id'])
                         <option value="{{ $type['id'] }}" selected>{{ $type['name'] }}</option>
                     @else
                         <option value="{{ $type['id'] }}">{{ $type['name'] }}</option>
@@ -39,17 +39,17 @@
         </div>
         <div class="form-group">
             <label for="name">Name : </label>
-            <input  type="text" class="form-control" name="name" value="{{ old('name') }}" 
+            <input  type="text" class="form-control" name="name" value="{{ old('name', isset($task) ? $task->name : '') }}" 
             />
         </div>
         <div class="form-group">
             <label for="detail">Detail :</label>
-            <textarea type="text" class="form-control" rows="3" name="detail">{{ old('detail')}}</textarea>
+            <textarea type="text" class="form-control" rows="3" name="detail">{{ old('detail',isset($task) ? $task->detail : '')}}</textarea>
         </div>
         <div class="form-group">
             <label class="text-inline">Status :</label>
             @foreach($statuses as $status)
-                @if( old('status',-1) == $status['id'])
+                @if( old('status', isset($task) ? $task->status :-1) == $status['id'])
                 <label class="radio-inline">
                     <input type="radio" name="status"  value = "{{ $status['id']}}" checked>{{ $status['name']}}
                 </label>&nbsp;
@@ -65,4 +65,3 @@
         </div>
     </form>
 </div>
-@endsection
