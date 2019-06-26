@@ -8,6 +8,16 @@
     <title>@yield('title')</title>
 </head>
 <body>
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand">Tasks</a>
+        @if(Auth::user())
+        <form action="{{ url('logout')}}" method="POST">
+            <input type="hidden" name="_token" value="{{ csrf_token()}}">
+            <input class="btn btn-outline my-2 my-sm-0" type="submit" type="submit" value="Logout"/>
+        </form>
+        @endif
+    </nav>
+
     <div class="container">
         @yield('content')
     </div>
