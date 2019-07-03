@@ -31,3 +31,10 @@ Route::patch('/tasks/{task}','TaskController@updateStatus');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('test', function(){
+    $roles = \App\Role::find(1);
+    foreach($roles->users as $role){
+        return $role->pivot->active;
+    }
+});

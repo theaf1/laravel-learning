@@ -3,8 +3,8 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use App\Type;
-class CreateTypesTable extends Migration
+use \App\Role;
+class CreateRolesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,16 @@ class CreateTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('types', function (Blueprint $table) {
+        Schema::create('roles', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
             $table->timestamps();
         });
-
-        $types = array(['name' => 'Support'],['name' => 'Maintain'],['name' => 'CR']);
-        foreach ($types as $type){
-            Type::create($type);
-        }
         
+        $roles = array(['name' => 'admin'],['name' => 'staff'],['name' => 'user']);
+        foreach ($roles as $role){
+            Role::create($role);
+        }
     }
 
     /**
@@ -33,6 +32,6 @@ class CreateTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('types');
+        Schema::dropIfExists('roles');
     }
 }

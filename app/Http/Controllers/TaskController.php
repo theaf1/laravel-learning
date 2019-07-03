@@ -27,7 +27,8 @@ class TaskController extends Controller
 
         $types = \App\Type::all();
         
-        $tasks = Task::all();
+        $tasks = Task::where('user_id',\Auth::id())->get();
+        
         return view('tasks.index')
                 ->with([
                     'tasks'=> $tasks,
@@ -96,6 +97,7 @@ class TaskController extends Controller
         $task = Task::find($id);
     
         $tasks = Task::all();
+        
         if(empty($task)){
             return "Not found";
         }

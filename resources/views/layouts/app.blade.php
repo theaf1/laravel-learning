@@ -11,6 +11,7 @@
     <nav class="navbar navbar-light bg-light">
         <a class="navbar-brand">Tasks</a>
         @if(Auth::user())
+        <a class="nav-link navbar-nav ml-auto">{{ Auth::user()->username }}</a>
         <form action="{{ url('logout')}}" method="POST">
             <input type="hidden" name="_token" value="{{ csrf_token()}}">
             <input class="btn btn-outline my-2 my-sm-0" type="submit" type="submit" value="Logout"/>
