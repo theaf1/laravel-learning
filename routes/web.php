@@ -25,7 +25,7 @@ Route::get('/tasks/{id}','TaskController@edit');
 
 Route::put('/tasks/{id}','TaskController@update');
 
-Route::patch('/tasks/{task}','TaskController@update');
+Route::patch('/tasks/{task}','TaskController@updateStatus');
 
 
 Auth::routes();
