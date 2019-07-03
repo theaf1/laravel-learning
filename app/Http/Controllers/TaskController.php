@@ -65,7 +65,7 @@ class TaskController extends Controller
             'name' => 'required|max:255',
             'status' => 'required'
         ]);
-        Task::create($request->all());
+        Task::create($request->all() + ['user_id' => \Auth::id() ]);
         return redirect()->back()->with('success','Created Successfully !!');
     }
 
@@ -88,9 +88,7 @@ class TaskController extends Controller
      */
     public function edit($id)
     {
-        $types[] = [ 'id' => 1 , 'name' => 'Support' ];
-        $types[] = [ 'id' => 2 , 'name' => 'Maintain' ];
-        $types[] = [ 'id' => 3 , 'name' => 'Change Requirement' ];
+        $types = \App\Type::all();
     
         $statuses[] = ['id' => 0, 'name' => 'Incomplete'];
         $statuses[] = ['id' => 1, 'name' => 'completed'];
@@ -119,8 +117,8 @@ class TaskController extends Controller
      */
     public function update(Task $task)
     {
-        $validation = $request->validate([
-            'type' => 'required',
+        $validation = request()->validate([
+            'type_id' => 'required',
             'name' => 'required|max:255',
             'status' => 'required'
         ]);

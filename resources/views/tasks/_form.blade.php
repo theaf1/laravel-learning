@@ -29,7 +29,7 @@
             <select class="form-control" name="type_id">
                 <option value="" hidden></option>
                 @foreach($types as $type )
-                    @if( old('type_id', isset($task) ? $task->type : '') == $type['id'])
+                    @if( old('type_id', isset($task) ? $task->type_id : '') == $type['id'])
                         <option value="{{ $type['id'] }}" selected>{{ $type['name'] }}</option>
                     @else
                         <option value="{{ $type['id'] }}">{{ $type['name'] }}</option>

@@ -6,6 +6,7 @@
 
 <h1 class="text-center">Tasks</h1>
 @include('tasks._form')
+<br/>
 <table class="table">
     <thead>
         <tr>
@@ -14,6 +15,7 @@
             <th>Task Name</th>
             <th>Detail</th>
             <th>Status</th>
+            <th>Creator</th>
             <th>Action</th>
             <th>Manage</th>
         </tr>
@@ -26,6 +28,7 @@
             <td>{{ $task->name }}</td>
             <td>{{ $task->detail }}</td>
             <td>{{ $task->status ? 'Completed':'Incomplete' }}</td>
+            <td>{{ $task->user->username }}</td>
             <td>
                 <form id="check-complate-{{ $task->id }}" action="/tasks/{{ $task->id }}" method="POST" style="display: none;">
                     @csrf

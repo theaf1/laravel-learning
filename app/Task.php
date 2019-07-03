@@ -10,7 +10,8 @@ class Task extends Model
         'type_id',
         'name',
         'detail',
-        'status'
+        'status',
+        'user_id'
     ];
 
     public function getTypeName(){
@@ -32,5 +33,9 @@ class Task extends Model
 
     public function type(){
         return $this->belongsTo(Type::class);
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class);
     }
 }
