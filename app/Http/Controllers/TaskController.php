@@ -18,12 +18,15 @@ class TaskController extends Controller
     }
     public function index()
     {
-        $types[] = [ 'id' => 1 , 'name' => 'Support' ];
-        $types[] = [ 'id' => 2 , 'name' => 'Maintain' ];
-        $types[] = [ 'id' => 3 , 'name' => 'Change Requirement' ];
-    
+        // $types[] = [ 'id' => 1 , 'name' => 'Support' ];
+        // $types[] = [ 'id' => 2 , 'name' => 'Maintain' ];
+        // $types[] = [ 'id' => 3 , 'name' => 'Change Requirement' ];
+        
         $statuses[] = ['id' => 0, 'name' => 'Incomplete'];
         $statuses[] = ['id' => 1, 'name' => 'completed'];
+
+        $types = \App\Type::all();
+        
         $tasks = Task::all();
         return view('tasks.index')
                 ->with([
@@ -58,7 +61,7 @@ class TaskController extends Controller
     public function store(Request $request)
     {
         $validation = $request->validate([
-            'type' => 'required',
+            'type_id' => 'required',
             'name' => 'required|max:255',
             'status' => 'required'
         ]);

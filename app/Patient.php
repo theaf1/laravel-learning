@@ -12,4 +12,8 @@ class Patient extends Model
         'document_id',
         'gender'
     ];
+
+    public function patientCard(){
+        return $this->hasOne(PatientCard::class,'patient_id','id');
+    }
 }

@@ -22,7 +22,7 @@
         @foreach($tasks as $task)
         <tr>
             <th>{{ $task->id }}</th>
-            <td>{{ $task->getTypeName() }}</td>
+            <td>{{ $task->type->name }}</td>
             <td>{{ $task->name }}</td>
             <td>{{ $task->detail }}</td>
             <td>{{ $task->status ? 'Completed':'Incomplete' }}</td>

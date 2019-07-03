@@ -11,4 +11,8 @@ class PatientCard extends Model
         'hn',
         'date_issued'
     ];
+
+    public function patient(){
+        return $this->belongsTo(Patient::class,'patient_id','id');
+    }
 }
