@@ -18,6 +18,11 @@ class CreateTypesTable extends Migration
             $table->string('name');
             $table->timestamps();
         });
+
+        $types = array(['name'=> 'Support'],['name'=> 'Maintain'],['name'=>'Change Requirement']);
+        foreach($types as $type){
+            \App\Type::create($type);
+        }
     }
 
     /**
