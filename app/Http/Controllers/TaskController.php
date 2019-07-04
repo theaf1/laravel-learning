@@ -124,7 +124,7 @@ class TaskController extends Controller
         ]);
         
         $task->update(request()->all());
-        return redirect()->back()->with('success','Edited Successfully !!');
+        return redirect('/tasks')->with('success','Edited Successfully !!');
     }
 
     public function updateStatus(Task $task){
@@ -139,6 +139,7 @@ class TaskController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Task::find($id)->delete();
+        return redirect('/tasks')->with('success','Delete Successfully !!');
     }
 }

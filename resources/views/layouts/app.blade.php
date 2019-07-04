@@ -9,7 +9,7 @@
 </head>
 <body>
     <nav class="navbar navbar-light bg-light">
-        <a class="navbar-brand">Tasks</a>
+        <a href="{{ ('/tasks') }}" class="navbar-brand">Tasks</a>
         @if(Auth::user())
         <a class="nav-link navbar-nav ml-auto">{{ Auth::user()->username }}</a>
         <form action="{{ url('logout')}}" method="POST">

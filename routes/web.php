@@ -27,6 +27,7 @@ Route::put('/tasks/{id}','TaskController@update');
 
 Route::patch('/tasks/{task}','TaskController@updateStatus');
 
+Route::delete('/tasks/{task}','TaskController@destroy');
 
 Auth::routes();
 

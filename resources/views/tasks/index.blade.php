@@ -6,7 +6,7 @@
 
 <h1 class="text-center">Tasks</h1>
 @include('tasks._form')
-<br/>
+<p>
 <table class="table">
     <thead>
         <tr>
@@ -44,9 +44,20 @@
             </td>
             <td>
                 <a class="btn btn-sm btn-success" role="button" href="{{ url('/tasks',$task->id) }}">Edit</a>
+                <form id="delete-task-{{ $task->id }}" action="/tasks/{{ $task->id }}" method="POST" style="display: none;">
+                    @csrf
+                    @method('delete')
+                </form>
+                @if(!$task->status)
+                    <button
+                        class="btn btn-sm btn-info"
+                        onclick="document.getElementById('delete-task-{{ $task->id }}').submit()"
+                    >Delete</button>
+                @endif
             </td>
         </tr>
         @endforeach
     </tbody>
 </table>
+</p>
 @endsection
