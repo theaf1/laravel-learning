@@ -27,7 +27,14 @@ class TaskController extends Controller
 
         $types = \App\Type::all();
         
-        $tasks = Task::all();
+        $roles =\Auth::user()->roles()->where('role_id',1)->first();
+        if(!empty($role)){
+            $tasks = Task::all();
+        }else{
+            $tasks = Task::where('user_id',\Auth::id())->get();    
+        }
+    
+        // $tasks = Task::all();
         return view('tasks.index')
                 ->with([
                     'tasks'=> $tasks,
