@@ -11,9 +11,9 @@
     <thead>
         <tr>
             <th>#</th>
-            <th>Type</th>
+            <th style="width: 5%;word-wrap: break-word;">Type</th>
             <th>Task Name</th>
-            <th>Detail</th>
+            <th style="width: 15%;word-wrap: break-word;">Detail</th>
             <th>Status</th>
             <th>Creator</th>
             <th>Action</th>
@@ -50,7 +50,7 @@
                 </form>
                 @if(!$task->status)
                     <button
-                        class="btn btn-sm btn-info"
+                        class="btn btn-sm btn-danger"
                         onclick="document.getElementById('delete-task-{{ $task->id }}').submit()"
                     >Delete</button>
                 @endif
