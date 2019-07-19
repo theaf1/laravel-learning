@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use \App\Task;
+use \Illuminate\Support\Facades\DB;
 class TaskController extends Controller
 {
     /**
@@ -27,9 +28,18 @@ class TaskController extends Controller
 
         $types = \App\Type::all();
         
-        $roles =\Auth::user()->roles()->where('role_id',1)->first();
+        $role =\Auth::user()->roles()->where('role_id',1)->first();
         if(!empty($role)){
-            $tasks = Task::all();
+            // $tasks = Task::all();
+            $tasks = DB::table('tasks')
+            ->join('types','tasks.type_id','=','types.id')
+            ->join('users','tasks.user_id','=','users.id')
+            ->select(
+                'tasks.*',
+                'types.name as type_name',
+                'users.username as username'
+            )
+            ->get();
         }else{
             $tasks = Task::where('user_id',\Auth::id())->get();    
         }
@@ -100,8 +110,8 @@ class TaskController extends Controller
         $statuses[] = ['id' => 0, 'name' => 'Incomplete'];
         $statuses[] = ['id' => 1, 'name' => 'completed'];
     
-        $task = Task::find($id);
-    
+        // $task = Task::find($id);
+        $task = DB::table('tasks')->where('id','=',$id)->first();
         $tasks = Task::all();
         if(empty($task)){
             return "Not found";

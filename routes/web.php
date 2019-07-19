@@ -32,3 +32,8 @@ Route::delete('/tasks/{task}','TaskController@destroy');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/users', function(){
+    $users = \App\User::paginate(50);
+    return view('user.index')->with(['users'=> $users]);
+});

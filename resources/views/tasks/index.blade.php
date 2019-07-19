@@ -24,11 +24,13 @@
         @foreach($tasks as $task)
         <tr>
             <th>{{ $task->id }}</th>
-            <td>{{ $task->type->name }}</td>
+            {{-- <td>{{ $task->type->name }}</td>--}} 
+            <td>{{ $task->type_name }}</td>
             <td>{{ $task->name }}</td>
             <td>{{ $task->detail }}</td>
             <td>{{ $task->status ? 'Completed':'Incomplete' }}</td>
-            <td>{{ $task->user->username }}</td>
+            {{-- <td>{{ $task->user->username }}</td> --}}
+            <td>{{ $task->username }}</td>
             <td>
                 <form id="check-complate-{{ $task->id }}" action="/tasks/{{ $task->id }}" method="POST" style="display: none;">
                     @csrf
