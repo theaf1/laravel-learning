@@ -28,20 +28,25 @@ class TaskController extends Controller
 
         $types = \App\Type::all();
         
-        $role =\Auth::user()->roles()->where('role_id',1)->first();
+        // $role =\Auth::user()->roles()->where('role_id',1)->first();
+        $role = \Auth::user()->roles()->AdminOrstaff()->first();
         if(!empty($role)){
             // $tasks = Task::all();
-            $tasks = DB::table('tasks')
-            ->join('types','tasks.type_id','=','types.id')
-            ->join('users','tasks.user_id','=','users.id')
-            ->select(
-                'tasks.*',
-                'types.name as type_name',
-                'users.username as username'
-            )
-            ->get();
+            // $tasks = DB::table('tasks')
+            // ->join('types','tasks.type_id','=','types.id')
+            // ->join('users','tasks.user_id','=','users.id')
+            // ->select(
+            //     'tasks.*',
+            //     'types.name as type_name',
+            //     'users.username as username'
+            // )
+            // ->get();
+            $sort = 'DESC';
+            $tasks = Task::taskAll($sort)->paginate(10);
         }else{
-            $tasks = Task::where('user_id',\Auth::id())->get();    
+            $tasks = Task::where('user_id',\Auth::id())
+            ->taskAll('DESC')
+            ->paginate(10);
         }
     
         // $tasks = Task::all();

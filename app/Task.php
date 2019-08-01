@@ -38,4 +38,16 @@ class Task extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
+
+    public function scopeTaskAll($query, $sort)
+    {
+        $query->join('types','tasks.type_id','=','types.id')
+        ->join('users','tasks.user_id','=','users.id')
+        ->select(
+            'tasks.*',
+            'types.name as type_name',
+            'users.username as username'
+        )
+        ->orderBy('tasks.id', $sort);
+    }
 }

@@ -62,4 +62,5 @@
     </tbody>
 </table>
 </p>
+{{$tasks->links()}}
 @endsection
