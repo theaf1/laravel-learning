@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class UserTableSeeder extends Seeder
+class UsersTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -17,9 +17,11 @@ class UserTableSeeder extends Seeder
     //     'username' => Str::random(10)
     //     'password' => bcrypt('secret'),
     // };
-    factory(\App\user::class,1000)->create()->each(function($user)
+    factory(\App\user::class,10)->create()->each(function($user)
     {
-        \App\Roleuser::create(['user_id'=> $user->id,'role_id'=>3]);
+        // \App\Roleuser::create(['user_id'=> $user->id,'role_id'=>3]);
+        $user->roleUsers()->saveMany(factory(\App\RoleUser::class,2)->make());
+        $user->tasks()->saveMany(factory(\App\Task::class,10)->make());
     });
     }
 }
