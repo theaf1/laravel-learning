@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use \App\Task;
 use \Illuminate\Support\Facades\DB;
+use \Illuminate\Support\Facades\Storage;
 class TaskController extends Controller
 {
     /**
@@ -82,12 +83,24 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
+        // return $request->all();
         $validation = $request->validate([
             'type_id' => 'required',
             'name' => 'required|max:255',
             'status' => 'required'
         ]);
-        Task::create($request->all() + ['user_id' => \Auth::id() ]);
+        $task = Task::create($request->all() + ['user_id' => \Auth::id() ]);
+        if($request->hasFile('file_upload')){
+            $path = $request->file('file_upload')->store('/public');
+            // $path = $request->file('file_upload')->storeAs('/', $request->file('file_upload')->getClientOriginalName());
+            $filename = pathinfo($path);
+            $task->file_upload = $filename['basename'];
+            $task->update();
+            // return Storage::download($path);
+            return Storage::url($path);
+        }else{
+            return 'no file';
+        }
         return redirect()->back()->with('success','Created Successfully !!');
     }
 

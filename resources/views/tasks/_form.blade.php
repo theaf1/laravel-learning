@@ -18,10 +18,10 @@
     @endif
     
     @if(isset($task))
-        <form action="{{ url('/tasks',$task->id)}}" method="post">
+        <form action="{{ url('/tasks',$task->id)}}" method="post" enctype="multipart/form-data">
         <input type="hidden" name="_method" value="PUT">
     @else
-        <form action="{{ url('/tasks/store')}}" method="post">
+        <form action="{{ url('/tasks/store')}}" method="post" enctype="multipart/form-data">
     @endif
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <div class="form-group">
@@ -45,6 +45,9 @@
         <div class="form-group">
             <label for="detail">Detail :</label>
             <textarea type="text" class="form-control" rows="3" name="detail">{{ old('detail',isset($task) ? $task->detail : '')}}</textarea>
+        </div>
+        <div class="form-group">
+        <input type="file" name="file_upload">
         </div>
         <div class="form-group">
             <label class="text-inline">Status :</label>

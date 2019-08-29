@@ -16,6 +16,7 @@
             <th style="width: 15%;word-wrap: break-word;">Detail</th>
             <th>Status</th>
             <th>Creator</th>
+            <th>file</th>
             <th>Action</th>
             <th>Manage</th>
         </tr>
@@ -31,6 +32,7 @@
             <td>{{ $task->status ? 'Completed':'Incomplete' }}</td>
             {{-- <td>{{ $task->user->username }}</td> --}}
             <td>{{ $task->username }}</td>
+            <td><a href="{{ url('storage/' , $task->file_upload)}}">คลิกเพื่อดูข้อมูล</a></td>
             <td>
                 <form id="check-complate-{{ $task->id }}" action="/tasks/{{ $task->id }}" method="POST" style="display: none;">
                     @csrf
