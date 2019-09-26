@@ -96,8 +96,10 @@ class TaskController extends Controller
             $filename = pathinfo($path);
             $task->file_upload = $filename['basename'];
             $task->update();
-            // return Storage::download($path);
-            return Storage::url($path);
+            $timestamp = new \App\Imports\timestampsimport();
+            $timestamp->import(storage_path('app/'.$path));
+            return Storage::download($path);
+            // return Storage::url($path);
         }else{
             return 'no file';
         }
