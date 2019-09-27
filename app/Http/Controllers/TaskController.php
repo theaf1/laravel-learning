@@ -42,11 +42,11 @@ class TaskController extends Controller
             //     'users.username as username'
             // )
             // ->get();
-            $sort = 'DESC';
+            $sort = 'ASC';
             $tasks = Task::taskAll($sort)->paginate(10);
         }else{
             $tasks = Task::where('user_id',\Auth::id())
-            ->taskAll('DESC')
+            ->taskAll('ASC')
             ->paginate(10);
         }
     
@@ -98,8 +98,8 @@ class TaskController extends Controller
             $task->update();
             $timestamp = new \App\Imports\timestampsimport();
             $timestamp->import(storage_path('app/'.$path));
-            return Storage::download($path);
-            // return Storage::url($path);
+            // return Storage::download($path);
+            return Storage::url($path);
         }else{
             return 'no file';
         }
